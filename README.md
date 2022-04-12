@@ -1,4 +1,4 @@
-# react-ripple-button
+# react-ripple
 
 ## Getting Started
 
@@ -6,17 +6,18 @@ Install dependencies,
 
 ```bash
 # npm
-$ npm i react-ripple-button
+$ npm i react-ripple
 # yarn
-$ yarn add react-ripple-button
+$ yarn add react-ripple
 ```
 
 ## Usage
 
 ### Basic
+
 ```javascript
 import React from 'react';
-import ReactRippleButton from 'react-ripple-button';
+import ReactRippleButton from 'react-ripple';
 import styles from './basic.module.less';
 
 export default () => {

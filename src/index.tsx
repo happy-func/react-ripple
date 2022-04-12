@@ -1,42 +1,86 @@
-import React , { useEffect , useRef } from 'react';
-import styles from './index.module.less';
+import React, { useEffect, useRef, useState } from 'react';
+import styled, { keyframes } from 'styled-components';
 
-function ReactRippleButton(props: ReactRippleButtonProps) {
-  const { children, onClick } = props;
-  const ripple = useRef(null);
-  const timer = useRef<number>(0);
+const ripples = keyframes`
+  0% {
+    width: 0;
+    height: 0;
+    opacity: 0.5;
+  }
+  100% {
+    width: 500px;
+    height: 500px;
+    opacity: 0;
+  }
+`;
+
+const StyledRippleBox = styled.div`
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+  cursor: pointer;
+  user-select: none;
+`;
+
+const StyledRipple = styled.span<{ left: number; top: number }>`
+  position: absolute;
+  left: ${(props) => props.left}px;
+  top: ${(props) => props.top}px;
+  background: #fff;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  animation: ${ripples} 0.6s linear;
+  pointer-events: none;
+`;
+
+function GenNonDuplicateID() {
+  let idStr = Date.now().toString(36);
+  idStr += Math.random().toString(36).substr(2);
+  return idStr;
+}
+
+function Ripple(props: RippleProps) {
+  const { children, onClick, className } = props;
+  const [rippleList, setRippleList] = useState<{ left: number; top: number; id: string }[]>([]);
+  let timer = useRef(0);
+  // @ts-ignore
   function _onClick(event) {
-    const { left, top } = event.currentTarget.getBoundingClientRect()
-    const x = event.clientX - left
-    const y = event.clientY - top
-    let ripples = document.createElement('span')
-    ripples.style.left = `${x}px`
-    ripples.style.top = `${y}px`
-    // @ts-ignore
-    ripple.current?.appendChild(ripples);
-
+    const { left, top } = event.currentTarget.getBoundingClientRect();
+    const x = event.clientX - left;
+    const y = event.clientY - top;
+    setRippleList((prevState) => {
+      prevState.push({ left: x, top: y, id: GenNonDuplicateID() });
+      return prevState;
+    });
     timer.current = setTimeout(() => {
-      ripples.remove()
-    }, 600)
+      setRippleList((prevState) => {
+        prevState.shift();
+        return prevState;
+      });
+    }, 600);
     onClick && onClick(event);
   }
   useEffect(() => {
     return () => clearTimeout(timer.current);
   }, []);
   return (
-    <div className={[styles.ripple].join(' ')} onClick={_onClick} ref={ripple}>
+    <StyledRippleBox className={className} onClick={_onClick}>
       {children}
-    </div>
-  )
+      {rippleList.map((item) => (
+        <StyledRipple left={item.left} top={item.top} key={item.id} />
+      ))}
+    </StyledRippleBox>
+  );
 }
 
-export interface ReactRippleButtonProps {
+export interface RippleProps {
   /**
    * @description       React.ReactNode
    * @default           null
    */
   children?: React.ReactNode;
-  onClick?:  React.MouseEventHandler<HTMLDivElement> | undefined;
+  onClick?: React.MouseEventHandler<HTMLDivElement> | undefined;
+  className?: string;
 }
 
-export default ReactRippleButton;
+export default Ripple;
