@@ -1,5 +1,6 @@
 import React from 'react';
 import Ripple from 'react-ripple';
+import 'react-ripple/es/style';
 
 const list = [1, 2, 3, 4];
 

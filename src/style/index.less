@@ -1,0 +1,29 @@
+@keyframes ripples {
+  0% {
+    width: 0;
+    height: 0;
+    opacity: 0.5;
+  }
+  100% {
+    width: 500px;
+    height: 500px;
+    opacity: 0;
+  }
+}
+
+.react-ripple {
+  position: absolute;
+  background: #fff;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  animation: ripples 0.6s linear;
+  pointer-events: none;
+
+  &-box {
+    position: relative;
+    display: inline-block;
+    overflow: hidden;
+    cursor: pointer;
+    user-select: none;
+  }
+}

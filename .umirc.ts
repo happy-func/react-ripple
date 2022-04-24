@@ -1,4 +1,5 @@
 import { defineConfig } from 'dumi';
+import * as path from 'path';
 
 const repo = 'react-ripple';
 
@@ -12,6 +13,7 @@ export default defineConfig({
   },
   hash: true,
   webpack5: {},
+  cssModulesTypescriptLoader: {},
   // @ts-ignore
   chainWebpack(memo, { env, webpack, createCSSRule }) {
     memo.cache = {

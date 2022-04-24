@@ -1,37 +1,4 @@
 import React, { useEffect, useRef, useState } from 'react';
-import styled, { keyframes } from 'styled-components';
-
-const ripples = keyframes`
-  0% {
-    width: 0;
-    height: 0;
-    opacity: 0.5;
-  }
-  100% {
-    width: 500px;
-    height: 500px;
-    opacity: 0;
-  }
-`;
-
-const StyledRippleBox = styled.div`
-  position: relative;
-  display: inline-block;
-  overflow: hidden;
-  cursor: pointer;
-  user-select: none;
-`;
-
-const StyledRipple = styled.span<{ left: number; top: number }>`
-  position: absolute;
-  left: ${(props) => props.left}px;
-  top: ${(props) => props.top}px;
-  background: #fff;
-  border-radius: 50%;
-  transform: translate(-50%, -50%);
-  animation: ${ripples} 0.6s linear;
-  pointer-events: none;
-`;
 
 function GenNonDuplicateID() {
   let idStr = Date.now().toString(36);
@@ -39,9 +6,23 @@ function GenNonDuplicateID() {
   return idStr;
 }
 
+interface RippleItem {
+  left: number;
+  top: number;
+  id: string;
+}
+
+function cloneRipples(ripples: RippleItem[]) {
+  return JSON.parse(JSON.stringify(ripples));
+}
+
+function classNames(list: (string | undefined)[]): string {
+  return list.filter((item) => !!item).join(` `);
+}
+
 function Ripple(props: RippleProps) {
-  const { children, onClick, className } = props;
-  const [rippleList, setRippleList] = useState<{ left: number; top: number; id: string }[]>([]);
+  const { children, onClick, className, duration = 600, color = `#fff` } = props;
+  const [rippleList, setRippleList] = useState<RippleItem[]>([]);
   let timer = useRef(0);
   // @ts-ignore
   function _onClick(event) {
@@ -49,13 +30,15 @@ function Ripple(props: RippleProps) {
     const x = event.clientX - left;
     const y = event.clientY - top;
     setRippleList((prevState) => {
-      prevState.push({ left: x, top: y, id: GenNonDuplicateID() });
-      return prevState;
+      const temp = cloneRipples(prevState);
+      temp.push({ left: x, top: y, id: GenNonDuplicateID() });
+      return temp;
     });
     timer.current = setTimeout(() => {
       setRippleList((prevState) => {
-        prevState.shift();
-        return prevState;
+        const temp = cloneRipples(prevState);
+        temp.shift();
+        return temp;
       });
     }, 600);
     onClick && onClick(event);
@@ -64,23 +47,48 @@ function Ripple(props: RippleProps) {
     return () => clearTimeout(timer.current);
   }, []);
   return (
-    <StyledRippleBox className={className} onClick={_onClick}>
+    <div className={classNames([`react-ripple-box`, className])} onClick={_onClick}>
       {children}
       {rippleList.map((item) => (
-        <StyledRipple left={item.left} top={item.top} key={item.id} />
+        // @ts-ignore
+        <span
+          className="react-ripple"
+          style={{
+            left: item.left,
+            top: item.top,
+            animationDuration: duration,
+            backgroundColor: color,
+          }}
+          key={item.id}
+        />
       ))}
-    </StyledRippleBox>
+    </div>
   );
 }
 
 export interface RippleProps {
   /**
    * @description       React.ReactNode
-   * @default           null
    */
   children?: React.ReactNode;
+  /**
+   * @description       onClick
+   */
   onClick?: React.MouseEventHandler<HTMLDivElement> | undefined;
+  /**
+   * @description       className
+   */
   className?: string;
+  /**
+   * @description       animation duration(ms)
+   * @default           600
+   */
+  duration?: number | string;
+  /**
+   * @description       ripple color
+   * @default           #fff
+   */
+  color?: string;
 }
 
 export default Ripple;
