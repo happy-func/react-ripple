@@ -50,12 +50,12 @@ function Ripple(props: RippleProps) {
     <div className={classNames([`react-ripple-box`, className])} onClick={_onClick}>
       {children}
       {rippleList.map((item) => (
-        // @ts-ignore
         <span
           className="react-ripple"
           style={{
             left: item.left,
             top: item.top,
+            // @ts-ignore
             animationDuration: duration,
             backgroundColor: color,
           }}
