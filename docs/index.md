@@ -1,12 +1,12 @@
-# @ripple/react
+# @happy-func/react-ripple
 
 Install dependencies,
 
 ```bash
 # npm
-$ npm i @ripple/react
+$ npm i @happy-func/react-ripple
 # yarn
-$ yarn add @ripple/react
+$ yarn add @happy-func/react-ripple
 ```
 
 <API src="../src/index.tsx"></API>

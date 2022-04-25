@@ -1,4 +1,4 @@
-# @ripple/react
+# @happy-func/react-ripple
 
 ## Getting Started
 
@@ -6,9 +6,9 @@ Install dependencies,
 
 ```bash
 # npm
-$ npm i @ripple/react
+$ npm i @happy-func/react-ripple
 # yarn
-$ yarn add @ripple/react
+$ yarn add @happy-func/react-ripple
 ```
 
 ## Usage
@@ -17,8 +17,8 @@ $ yarn add @ripple/react
 
 ```javascript
 import React from 'react';
-import Ripple from '@ripple/react';
-import '@ripple/react/es/style';
+import Ripple from '@happy-func/react-ripple';
+import '@happy-func/react-ripple/es/style';
 
 const ButtonStyle = {
   padding: `12px 36px`,

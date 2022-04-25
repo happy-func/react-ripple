@@ -1,6 +1,6 @@
 import React from 'react';
-import Ripple from '@ripple/react';
-import '@ripple/react/es/style';
+import Ripple from '@happy-func/react-ripple';
+import '@happy-func/react-ripple/es/style';
 
 const list = [1, 2, 3, 4];
 

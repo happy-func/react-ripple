@@ -1,6 +1,6 @@
 {
   "license": "MIT",
-  "name": "@ripple/react",
+  "name": "@happy-func/react-ripple",
   "version": "1.0.0",
   "scripts": {
     "start": "dumi dev",
@@ -49,7 +49,6 @@
     "react": ">=16.8.0",
     "react-dom": ">=16.8.0"
   },
-  "dependencies": {},
   "devDependencies": {
     "@testing-library/jest-dom": "^5.15.1",
     "@testing-library/react": "^12.1.2",
