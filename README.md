@@ -1,4 +1,4 @@
-# react-ripple
+# @ripple/react
 
 ## Getting Started
 
@@ -6,9 +6,9 @@ Install dependencies,
 
 ```bash
 # npm
-$ npm i react-ripple
+$ npm i @ripple/react
 # yarn
-$ yarn add react-ripple
+$ yarn add @ripple/react
 ```
 
 ## Usage
@@ -17,8 +17,8 @@ $ yarn add react-ripple
 
 ```javascript
 import React from 'react';
-import Ripple from 'react-ripple';
-import 'react-ripple/es/style';
+import Ripple from '@ripple/react';
+import '@ripple/react/es/style';
 
 const ButtonStyle = {
   padding: `12px 36px`,

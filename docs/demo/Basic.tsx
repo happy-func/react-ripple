@@ -1,6 +1,6 @@
 import React from 'react';
-import Ripple from 'react-ripple';
-import 'react-ripple/es/style';
+import Ripple from '@ripple/react';
+import '@ripple/react/es/style';
 
 const ButtonStyle = {
   padding: `12px 36px`,

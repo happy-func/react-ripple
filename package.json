@@ -1,6 +1,6 @@
 {
   "license": "MIT",
-  "name": "react-ripple",
+  "name": "@ripple/react",
   "version": "1.0.0",
   "scripts": {
     "start": "dumi dev",

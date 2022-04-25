@@ -5,7 +5,7 @@ const repo = 'react-ripple';
 
 export default defineConfig({
   mode: 'doc',
-  title: repo,
+  title: `@ripple/react`,
   base: `/${repo}/`,
   publicPath: `/${repo}/`,
   resolve: {

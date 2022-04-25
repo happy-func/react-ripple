@@ -1,12 +1,12 @@
-# react-ripple
+# @ripple/react
 
 Install dependencies,
 
 ```bash
 # npm
-$ npm i react-ripple
+$ npm i @ripple/react
 # yarn
-$ yarn add react-ripple
+$ yarn add @ripple/react
 ```
 
 <API src="../src/index.tsx"></API>
